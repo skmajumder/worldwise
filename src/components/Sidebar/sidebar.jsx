@@ -10,7 +10,7 @@ const Sidebar = () => {
       <Logo />
       <AppNav />
 
-      {/* Dynamic components show there */}
+      {/* Dynamic components will show there */}
       <Outlet />
 
       <Footer />
