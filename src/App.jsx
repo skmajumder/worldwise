@@ -11,6 +11,7 @@ import CityList from "./components/CityList/CityList";
 import CountryList from "./components/CountryList/CountryList";
 
 const BASE_URL = `http://localhost:8000/cities`;
+// const LOCAL_PATH = "/cities.json";
 
 const App = () => {
   const [cities, setCities] = useState([]);
