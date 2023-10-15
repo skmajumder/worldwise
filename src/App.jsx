@@ -10,6 +10,7 @@ import AppLayout from "./pages/AppLayout/AppLayout";
 import CityList from "./components/CityList/CityList";
 import CountryList from "./components/CountryList/CountryList";
 import City from "./components/City/City";
+import Form from "./components/Form/Form";
 
 const BASE_URL = `http://localhost:8000/cities`;
 // const LOCAL_PATH = "/cities.json";
@@ -65,7 +66,7 @@ const App = () => {
           <Route path="cities" element={<CityList {...cityProps} />} />
           <Route path="cities/:id" element={<City />} />
           <Route path="countries" element={<CountryList {...cityProps} />} />
-          <Route path="form" element={<p>Form</p>} />
+          <Route path="form" element={<Form />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
