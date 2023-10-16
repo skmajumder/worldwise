@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Homepage from "./pages/Homepage/Homepage";
@@ -12,48 +11,7 @@ import CountryList from "./components/CountryList/CountryList";
 import City from "./components/City/City";
 import Form from "./components/Form/Form";
 
-const BASE_URL = `http://localhost:8000/cities`;
-// const LOCAL_PATH = "/cities.json";
-
 const App = () => {
-  const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const cityProps = { cities, isLoading };
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function fetchCityList() {
-      try {
-        setIsLoading(true);
-        const req = await fetch(BASE_URL, {
-          signal: controller.signal,
-        });
-
-        if (!req.ok) {
-          throw new Error(`Something went wrong while fetching`);
-        }
-
-        const res = await req.json();
-        setCities(res);
-      } catch (error) {
-        if (error.name !== "AbortError") {
-          console.log(error.name);
-          console.log(error.message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchCityList();
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -63,9 +21,9 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="app" element={<AppLayout />}>
           <Route index element={<Navigate replace to={"cities"} />} />
-          <Route path="cities" element={<CityList {...cityProps} />} />
+          <Route path="cities" element={<CityList />} />
           <Route path="cities/:id" element={<City />} />
-          <Route path="countries" element={<CountryList {...cityProps} />} />
+          <Route path="countries" element={<CountryList />} />
           <Route path="form" element={<Form />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
