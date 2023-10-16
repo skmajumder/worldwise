@@ -2,12 +2,13 @@ import { createContext, useEffect, useState } from "react";
 
 const CitiesContext = createContext(null);
 
-const BASE_URL = `http://localhost:8000/cities`;
+const BASE_URL = `http://localhost:8000`;
 // const LOCAL_PATH = "/cities.json";
 
 const CitiesProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentCity, setCurrentCity] = useState({});
 
   useEffect(() => {
     const controller = new AbortController();
@@ -15,7 +16,7 @@ const CitiesProvider = ({ children }) => {
     async function fetchCityList() {
       try {
         setIsLoading(true);
-        const req = await fetch(BASE_URL, {
+        const req = await fetch(`${BASE_URL}/cities`, {
           signal: controller.signal,
         });
 
@@ -42,9 +43,33 @@ const CitiesProvider = ({ children }) => {
     };
   }, []);
 
+  // Create an AbortController
+  async function getCity(id, signal) {
+    try {
+      setIsLoading(true);
+      const req = await fetch(`${BASE_URL}/cities/${id}`, {
+        signal,
+      });
+
+      if (!req.ok) {
+        throw new Error(`Something went wrong while fetching city`);
+      }
+
+      const res = await req.json();
+      setCurrentCity(res);
+    } catch (error) {
+      console.log(error.name);
+      console.log(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const values = {
     cities,
     isLoading,
+    currentCity,
+    getCity,
   };
 
   return (
