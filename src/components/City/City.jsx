@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 import Button from "../Button/Button";
+import Spinner from "../Spinner/Spinner";
 import useCities from "../../hooks/useCities";
-
 import styles from "./City.module.css";
 
 function formatDate(dateString) {
@@ -15,22 +15,19 @@ function formatDate(dateString) {
 function City() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { currentCity, getCity } = useCities();
+  const { currentCity, getCity, isLoading } = useCities();
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    getCity(id);
 
-    getCity(id, signal);
-
-    return () => {
-      controller.abort();
-    };
+    return () => {};
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const { cityName, emoji, date, notes } = currentCity;
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.city}>

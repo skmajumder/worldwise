@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-const CitiesContext = createContext(null);
+const CitiesContext = createContext();
 
 const BASE_URL = `http://localhost:8000`;
 // const LOCAL_PATH = "/cities.json";
@@ -44,12 +44,10 @@ const CitiesProvider = ({ children }) => {
   }, []);
 
   // Create an AbortController
-  async function getCity(id, signal) {
+  async function getCity(id) {
     try {
       setIsLoading(true);
-      const req = await fetch(`${BASE_URL}/cities/${id}`, {
-        signal,
-      });
+      const req = await fetch(`${BASE_URL}/cities/${id}`);
 
       if (!req.ok) {
         throw new Error(`Something went wrong while fetching city`);
