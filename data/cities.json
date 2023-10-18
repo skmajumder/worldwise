@@ -47,6 +47,30 @@
         "lng": 11.3770245
       },
       "id": 98543197
+    },
+    {
+      "cityName": "Amsterdam",
+      "country": "Netherlands (the)",
+      "emoji": "🇳🇱",
+      "date": "2023-10-18T21:44:57.117Z",
+      "notes": "Dream tour.",
+      "position": {
+        "lat": "52.3906462196568",
+        "lng": "5.064697265625001"
+      },
+      "id": 98543198
+    },
+    {
+      "cityName": "Wellington",
+      "country": "New Zealand",
+      "emoji": "🇳🇿",
+      "date": "2023-10-18T22:02:12.413Z",
+      "notes": "",
+      "position": {
+        "lat": "-41.28501034123561",
+        "lng": "174.82955932617188"
+      },
+      "id": 98543199
     }
   ]
 }
