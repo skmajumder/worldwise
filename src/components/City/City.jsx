@@ -18,9 +18,13 @@ function City() {
   const { currentCity, getCity, isLoading } = useCities();
 
   useEffect(() => {
-    getCity(id);
+    const controller = new AbortController();
 
-    return () => {};
+    getCity(id, controller);
+
+    return () => {
+      controller.abort();
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);

@@ -26,13 +26,12 @@ const CitiesProvider = ({ children }) => {
 
         const res = await req.json();
         setCities(res);
+        setIsLoading(false);
       } catch (error) {
         if (error.name !== "AbortError") {
           console.log(error.name);
           console.log(error.message);
         }
-      } finally {
-        setIsLoading(false);
       }
     }
 
@@ -44,10 +43,12 @@ const CitiesProvider = ({ children }) => {
   }, []);
 
   // Create an AbortController
-  async function getCity(id) {
+  async function getCity(id, controller) {
     try {
       setIsLoading(true);
-      const req = await fetch(`${BASE_URL}/cities/${id}`);
+      const req = await fetch(`${BASE_URL}/cities/${id}`, {
+        signal: controller.signal,
+      });
 
       if (!req.ok) {
         throw new Error(`Something went wrong while fetching city`);
@@ -55,11 +56,12 @@ const CitiesProvider = ({ children }) => {
 
       const res = await req.json();
       setCurrentCity(res);
-    } catch (error) {
-      console.log(error.name);
-      console.log(error.message);
-    } finally {
       setIsLoading(false);
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.log(error.name);
+        console.log(error.message);
+      }
     }
   }
 
