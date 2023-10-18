@@ -24,8 +24,7 @@ function City() {
     return () => {
       controller.abort();
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const { cityName, emoji, date, notes } = currentCity;

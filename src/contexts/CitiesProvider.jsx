@@ -42,7 +42,6 @@ const CitiesProvider = ({ children }) => {
     };
   }, []);
 
-  // Create an AbortController
   async function getCity(id, controller) {
     try {
       setIsLoading(true);
@@ -65,11 +64,36 @@ const CitiesProvider = ({ children }) => {
     }
   }
 
+  async function createNewCity(newCity) {
+    try {
+      setIsLoading(true);
+      const req = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      if (!req.ok) {
+        throw new Error(`Something went wrong POST request`);
+      }
+
+      const data = await req.json();
+      setCities((cities) => [...cities, data]);
+      
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   const values = {
     cities,
     isLoading,
     currentCity,
     getCity,
+    createNewCity,
   };
 
   return (
