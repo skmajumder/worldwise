@@ -23,10 +23,18 @@ function reducer(state, action) {
       return { ...state, isLoading: false, currentCity: action.payload };
 
     case "cities/created":
-      return { ...state };
+      return {
+        ...state,
+        isLoading: false,
+        cities: [...state.cities, action.payload],
+      };
 
     case "cities/deleted":
-      return { ...state };
+      return {
+        ...state,
+        isLoading: false,
+        cities: state.cities.filter((c) => c.id !== action.payload),
+      };
 
     case "rejected":
       return { ...state, error: action.payload };
@@ -108,9 +116,9 @@ const CitiesProvider = ({ children }) => {
       }
 
       const data = await req.json();
-      setCities((cities) => [...cities, data]);
+      dispatch({ type: "cities/created", payload: data });
     } catch (error) {
-      console.log(error.message);
+      dispatch({ type: "rejected", payload: error.message });
     }
   }
 
@@ -121,9 +129,9 @@ const CitiesProvider = ({ children }) => {
         method: "DELETE",
       });
 
-      setCities((cities) => cities.filter((c) => c.id !== cityID));
+      dispatch({ type: "cities/deleted", payload: cityID });
     } catch (error) {
-      console.log(error.message);
+      dispatch({ type: "rejected", payload: error.message });
     }
   }
 
