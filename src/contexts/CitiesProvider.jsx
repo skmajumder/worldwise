@@ -76,12 +76,26 @@ const CitiesProvider = ({ children }) => {
       });
 
       if (!req.ok) {
-        throw new Error(`Something went wrong POST request`);
+        throw new Error(`Something went wrong to create city.`);
       }
 
       const data = await req.json();
       setCities((cities) => [...cities, data]);
-      
+
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async function deleteCity(cityID) {
+    try {
+      setIsLoading(true);
+      await fetch(`${BASE_URL}/cities/${cityID}`, {
+        method: "DELETE",
+      });
+
+      setCities((cities) => cities.filter((c) => c.id !== cityID));
       setIsLoading(false);
     } catch (error) {
       console.log(error.message);
@@ -94,6 +108,7 @@ const CitiesProvider = ({ children }) => {
     currentCity,
     getCity,
     createNewCity,
+    deleteCity,
   };
 
   return (
