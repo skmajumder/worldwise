@@ -19,6 +19,9 @@ function reducer(state, action) {
     case "cities/loaded":
       return { ...state, isLoading: false, cities: action.payload };
 
+    case "city/loaded":
+      return { ...state, isLoading: false, currentCity: action.payload };
+
     case "cities/created":
       return { ...state };
 
@@ -81,11 +84,10 @@ const CitiesProvider = ({ children }) => {
       }
 
       const res = await req.json();
-      setCurrentCity(res);
+      dispatch({ type: "city/loaded", payload: res });
     } catch (error) {
       if (error.name !== "AbortError") {
-        console.log(error.name);
-        console.log(error.message);
+        dispatch({ type: "rejected", payload: error.message });
       }
     }
   }
