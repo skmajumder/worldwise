@@ -37,18 +37,6 @@
       "id": 98443199
     },
     {
-      "cityName": "Munich",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2023-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 48.155022,
-        "lng": 11.3770245
-      },
-      "id": 98543197
-    },
-    {
       "cityName": "Amsterdam",
       "country": "Netherlands (the)",
       "emoji": "🇳🇱",
