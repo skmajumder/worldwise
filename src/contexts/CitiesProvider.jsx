@@ -22,14 +22,15 @@ function reducer(state, action) {
     case "city/loaded":
       return { ...state, isLoading: false, currentCity: action.payload };
 
-    case "cities/created":
+    case "city/created":
       return {
         ...state,
         isLoading: false,
         cities: [...state.cities, action.payload],
+        currentCity: action.payload,
       };
 
-    case "cities/deleted":
+    case "city/deleted":
       return {
         ...state,
         isLoading: false,
@@ -81,6 +82,8 @@ const CitiesProvider = ({ children }) => {
   }, []);
 
   async function getCity(id, controller) {
+    if (Number(id) === currentCity.id) return;
+
     dispatch({ type: "loading" });
     try {
       const req = await fetch(`${BASE_URL}/cities/${id}`, {
@@ -116,7 +119,7 @@ const CitiesProvider = ({ children }) => {
       }
 
       const data = await req.json();
-      dispatch({ type: "cities/created", payload: data });
+      dispatch({ type: "city/created", payload: data });
     } catch (error) {
       dispatch({ type: "rejected", payload: error.message });
     }
@@ -129,7 +132,7 @@ const CitiesProvider = ({ children }) => {
         method: "DELETE",
       });
 
-      dispatch({ type: "cities/deleted", payload: cityID });
+      dispatch({ type: "city/deleted", payload: cityID });
     } catch (error) {
       dispatch({ type: "rejected", payload: error.message });
     }
