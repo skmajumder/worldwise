@@ -13,7 +13,7 @@ function reducer(state, action) {
       return { ...state, user: action.payload, isAuthenticated: true };
 
     case "logout":
-      return { ...state, initialState };
+      return { ...state, user: null, isAuthenticated: false };
 
     default:
       throw new Error("Invalid action");
