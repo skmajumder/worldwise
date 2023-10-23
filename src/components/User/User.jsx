@@ -1,12 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import styles from "./User.module.css";
 
 function User() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const lastVisitedLocation = location.pathname;
 
   function handleClick() {
+    localStorage.setItem("lastVisitedLocation", lastVisitedLocation);
     logout();
     navigate("/");
   }

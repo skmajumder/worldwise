@@ -6,13 +6,15 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { login, user, isAuthenticated } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
   // PRE-FILL FOR DEV PURPOSES
   const [email, setEmail] = useState("jack@example.com");
   const [password, setPassword] = useState("qwerty");
 
   const navigate = useNavigate();
+  const lastVisitedLocation =
+    localStorage.getItem("lastVisitedLocation") || "/app";
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,11 +22,11 @@ export default function Login() {
   }
 
   useEffect(() => {
-    if (isAuthenticated && user)
-      navigate("/app", {
-        replace: true,
-      });
-  }, [isAuthenticated, navigate, user]);
+    if (isAuthenticated) {
+      localStorage.removeItem("lastVisitedLocation");
+      navigate(lastVisitedLocation);
+    }
+  }, [isAuthenticated, navigate, lastVisitedLocation]);
 
   return (
     <main className={styles.login}>
