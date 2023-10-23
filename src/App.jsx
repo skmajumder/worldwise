@@ -15,8 +15,8 @@ import { AuthProvider } from "./contexts/AuthProvider";
 
 const App = () => {
   return (
-    <CitiesProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <CitiesProvider>
         <BrowserRouter>
           <Routes>
             <Route index element={<Homepage />} />
@@ -33,8 +33,8 @@ const App = () => {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
-    </CitiesProvider>
+      </CitiesProvider>
+    </AuthProvider>
   );
 };
 
