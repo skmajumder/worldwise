@@ -7,8 +7,6 @@ import styles from "./CityList.module.css";
 const CityList = () => {
   const { cities, isLoading } = useCities();
 
-  console.log('Re-rendering');
-
   if (isLoading) return <Spinner />;
 
   if (!cities.length)
