@@ -1,4 +1,4 @@
-import { createContext, useMemo, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 const AuthContext = createContext();
 
@@ -42,9 +42,7 @@ const AuthProvider = ({ children }) => {
     dispatch({ type: "logout" });
   }
 
-  const authInfo = useMemo(() => {
-    return { login, logout, user, isAuthenticated };
-  }, [isAuthenticated, user]);
+  const authInfo = { login, logout, user, isAuthenticated };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
