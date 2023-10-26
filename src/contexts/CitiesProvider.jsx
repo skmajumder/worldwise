@@ -1,4 +1,10 @@
-import { createContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
 
 const CitiesContext = createContext();
 
@@ -81,27 +87,30 @@ const CitiesProvider = ({ children }) => {
     };
   }, []);
 
-  async function getCity(id, controller) {
-    if (Number(id) === currentCity.id) return;
+  const getCity = useCallback(
+    async function getCity(id, controller) {
+      if (Number(id) === currentCity.id) return;
 
-    dispatch({ type: "loading" });
-    try {
-      const req = await fetch(`${BASE_URL}/cities/${id}`, {
-        signal: controller.signal,
-      });
+      dispatch({ type: "loading" });
+      try {
+        const req = await fetch(`${BASE_URL}/cities/${id}`, {
+          signal: controller.signal,
+        });
 
-      if (!req.ok) {
-        throw new Error(`Something went wrong while fetching city`);
+        if (!req.ok) {
+          throw new Error(`Something went wrong while fetching city`);
+        }
+
+        const res = await req.json();
+        dispatch({ type: "city/loaded", payload: res });
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          dispatch({ type: "rejected", payload: error.message });
+        }
       }
-
-      const res = await req.json();
-      dispatch({ type: "city/loaded", payload: res });
-    } catch (error) {
-      if (error.name !== "AbortError") {
-        dispatch({ type: "rejected", payload: error.message });
-      }
-    }
-  }
+    },
+    [currentCity.id]
+  );
 
   async function createNewCity(newCity) {
     dispatch({ type: "loading" });
@@ -138,14 +147,16 @@ const CitiesProvider = ({ children }) => {
     }
   }
 
-  const values = {
-    cities,
-    isLoading,
-    currentCity,
-    getCity,
-    createNewCity,
-    deleteCity,
-  };
+  const values = useMemo(() => {
+    return {
+      cities,
+      isLoading,
+      currentCity,
+      getCity,
+      createNewCity,
+      deleteCity,
+    };
+  }, [cities, isLoading, currentCity, getCity]);
 
   return (
     <CitiesContext.Provider value={values}>{children}</CitiesContext.Provider>
