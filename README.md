@@ -1,16 +1,55 @@
 # WorldWise
 
-This is an **_Ongoing_** React project that allows users to select a city they have visited and take notes about their trip. The project uses a real-time map and UI state management to enhance the user experience. In this project I use React, React Router, json-server, context API, memo, useMemo, useCallback, hooks, Reducer.
+This is an React project that allows users to select a city they have visited and take notes about their trip. The project uses a real-time map and UI state management to enhance the user experience. In this project I use React, React Router, json-server, context API, memo, useMemo, useCallback, hooks, Reducer.
 
-## Prerequisites
+> [!NOTE]
+> This is an ongoing react project.
+
+## 1. Prerequisites
 
 Before you begin, ensure you have the following prerequisites installed on your system:
 
-- Node.js - Make sure to install [Node.js](https://nodejs.org/en), which includes npm (Node Package Manager)
+- Node.js - Make sure to install [Node.js](https://nodejs.org/en), which includes NPM. NodeJs is a JavaScript runtime environment. The NPM – Node Package Manager is the default package manager for NodeJs.
 
-## Getting Started
+> [!TIP]
+> Use the following steps on your computer's terminal to check if Node js is installed or whether it is installed correctly
 
-To start this project on your local machine, follow those steps.
+#### For windows
+
+1. Open terminal.
+1. Run this command to check if Node is installed or not
+
+```
+node -v
+```
+
+1. Now run this command to check if NPM is installed
+
+```
+npm -v
+```
+
+#### For macOS
+
+1. Open your terminal
+1. To check in node.js is installed, run
+
+```
+node -v
+```
+
+1. Now run this command to check if NPM is installed
+
+```
+npm -v
+```
+
+> [!NOTE]
+> If everything is OK then follow step two.
+
+## 2. Getting Started
+
+To start this project on your local machine/PC, follow those steps.
 
 #### 1. Clone the Repository
 
@@ -23,7 +62,7 @@ cd worldwise
 
 #### 2. Open the project in a code editor.
 
-If you use [VSCode](https://code.visualstudio.com/download), use this command to open this project in a new editor.
+Now open the project in your code editor or integrated development environment (IDE). If you use [VSCode](https://code.visualstudio.com/download), use this command to open this project in a new editor.
 
 ```
 code worldwise
@@ -37,7 +76,9 @@ Install the required dependencies for the project. Use this command to install d
 npm install
 ```
 
-## Run the project
+It will take some time to install all the required packages, so be patient 😊😊.
+
+## 3. Run the project
 
 After installing the dependencies, you need to follow some steps to run the project.
 
@@ -71,7 +112,7 @@ npm run preview
 
 After successfully running the JSON-server and the project, now you can see the project.
 
-## Used packages & Tech
+## 4. Used packages & Tech
 
 I use the following packages and Tech on the project. You can see the list of packages available on the project.
 
@@ -97,8 +138,9 @@ I use the following packages and Tech on the project. You can see the list of pa
 - Reducer
 - .env
 
-## Live URL
+## 5. Live URL
 
 Here is the live URL for the application. You can use the following URL to see the live project.
 
 [Live Url](https://worldwise-94d6d.web.app/)
+[GitHub](https://github.com/skmajumder/worldwise)
